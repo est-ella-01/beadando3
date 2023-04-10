@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="beadando3.css">
+    <title>Fejszámolás</title>
+</head>
+
+<body onload="setGame()">
+    <div class="container">
+        <h1>Jó vagy fejszámolásban?</h1>
+        <button onclick="setGame()">új számokat kérek</button>
+        <div class="osszeadas">
+            <span class="szamdoboz" id="szam1"></span>
+            <i class="fa-regular fa-square-plus fa-2x"></i>
+            <span class="szamdoboz" id="szam2"></span>
+            <i class="fa-sharp fa-solid fa-equals fa-2x"></i>
+            <input type="number" id="tipp" onkeyup="osszehasonlit()">
+        </div>
+        <div class="reakcio"></div>
+    </div>
+    <script>
+        function setGame(){
+            function randSzam() {
+                return Math.floor(Math.random() * (100 - 1) + 1)
+            }
+            let szam1 = randSzam()
+            let szam2 = randSzam()
+            document.getElementById('szam1').innerHTML = szam1
+            document.getElementById('szam2').innerHTML = szam2
+            document.getElementById('tipp').value=''
+            document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-question fa-2x"></i>'
+            document.getElementById('tipp').disabled=false;
+            console.log(szam1 + szam2) 
+        }
+        
+        function osszehasonlit() {
+            let szam1=+document.getElementById('szam1').innerHTML
+            let szam2=+document.getElementById('szam2').innerHTML
+            let tipp = +document.getElementById('tipp').value
+            console.log(tipp)
+            if (szam1 + szam2== tipp) {
+                document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-thumbs-up fa-2x"></i>';
+                document.querySelector('.reakcio i').style.color = 'green';
+                document.getElementById('tipp').disabled=true
+            } else {
+                document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-circle-xmark fa-2x"></i>';
+            }
+        }
+    </script>
+</body>
+
+</html>
