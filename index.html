@@ -29,7 +29,11 @@
         <div class="reakcio"></div>
     </div>
     <script>
+         let timer 
+        let progress
+
         function setGame(){
+            clearInterval(timer)
             function randSzam() {
                 return Math.floor(Math.random() * (100 - 1) + 1)
             }
@@ -41,6 +45,7 @@
             document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-question fa-2x"></i>'
             document.getElementById('tipp').disabled=false;
             console.log(szam1 + szam2) 
+            tickTimer()
         }
         
         function osszehasonlit() {
@@ -52,9 +57,29 @@
                 document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-thumbs-up fa-2x"></i>';
                 document.querySelector('.reakcio i').style.color = 'green';
                 document.getElementById('tipp').disabled=true
+                clearInterval(timer)
+                return
             } else {
                 document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-circle-xmark fa-2x"></i>';
+                return
             }
+        }
+
+        const tickTimer=()=>{
+            progress=0;
+            document.querySelector('.progbar-in').style.width=progress;
+            timer=setInterval(()=>{
+                if(progress<5){
+                    document.querySelector('.progbar-in').style.width=`${++progress*20}%`;
+                    console.log(progress);
+                }else{
+                    document.getElementById('tipp').disabled=true
+                    document.querySelector('.reakcio').innerHTML = '<i class="fa-solid fa-circle-xmark fa-2x"></i>';
+                    clearInterval(timer)
+                    return             
+                }
+            }
+            ,1000);
         }
     </script>
 </body>
